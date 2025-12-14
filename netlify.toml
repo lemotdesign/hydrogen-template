@@ -7,6 +7,8 @@ publish = "public"
 # Enable the static server for edge functions, because Remix handles the dev server
 framework = "#static"
 
+
+
 # Set immutable caching for static files, because they have fingerprinted filenames
 
 [[headers]]
