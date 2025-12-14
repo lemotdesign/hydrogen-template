@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "remix build",
-    "dev": "remix build && remix dev --manual -c \"npx --yes netlify-cli@latest dev\"",
+    "dev": "remix build && ([ -n \"$NETLIFY_DEV\" ] && tail -f /dev/null || npx --yes netlify-cli@latest dev --offline)",
     "preview": "netlify serve",
     "lint": "eslint --no-error-on-unmatched-pattern --ext .js,.ts,.jsx,.tsx .",
     "typecheck": "tsc --noEmit",

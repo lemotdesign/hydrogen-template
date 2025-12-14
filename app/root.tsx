@@ -21,7 +21,8 @@ import type {CustomerAccessToken} from '@shopify/hydrogen/storefront-api-types';
 import favicon from '../public/favicon.svg';
 import resetStyles from './styles/reset.css';
 import appStyles from './styles/app.css';
-import {Layout} from '~/components/Layout';
+import strongStyles from './styles/strong.css';
+import {StrongLayout} from '~/components/StrongLayout';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -48,6 +49,7 @@ export function links() {
   return [
     {rel: 'stylesheet', href: resetStyles},
     {rel: 'stylesheet', href: appStyles},
+    {rel: 'stylesheet', href: strongStyles},
     {
       rel: 'preconnect',
       href: 'https://cdn.shopify.com',
@@ -55,6 +57,19 @@ export function links() {
     {
       rel: 'preconnect',
       href: 'https://shop.app',
+    },
+    {
+      rel: 'preconnect',
+      href: 'https://fonts.googleapis.com',
+    },
+    {
+      rel: 'preconnect',
+      href: 'https://fonts.gstatic.com',
+      crossOrigin: 'anonymous',
+    },
+    {
+      rel: 'stylesheet',
+      href: 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap',
     },
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
@@ -120,9 +135,9 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Layout {...data}>
+        <StrongLayout {...data}>
           <Outlet />
-        </Layout>
+        </StrongLayout>
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
         <LiveReload nonce={nonce} />
@@ -154,7 +169,7 @@ export function ErrorBoundary() {
         <Links />
       </head>
       <body>
-        <Layout {...rootData}>
+        <StrongLayout {...rootData}>
           <div className="route-error">
             <h1>Oops</h1>
             <h2>{errorStatus}</h2>
@@ -164,7 +179,7 @@ export function ErrorBoundary() {
               </fieldset>
             )}
           </div>
-        </Layout>
+        </StrongLayout>
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
         <LiveReload nonce={nonce} />
