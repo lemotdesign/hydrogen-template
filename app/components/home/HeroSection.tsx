@@ -4,8 +4,50 @@ export function HeroSection() {
   return (
     <section className="hero-section">
       <div className="hero-background">
+        <picture className="hero-bg-picture">
+          <source 
+            media="(max-width: 640px)" 
+            srcSet="/images/hero/hero-640w.webp"
+            type="image/webp"
+          />
+          <source 
+            media="(max-width: 640px)" 
+            srcSet="/images/hero/hero-640w.jpg"
+            type="image/jpeg"
+          />
+          <source 
+            media="(max-width: 1024px)" 
+            srcSet="/images/hero/hero-1024w.webp"
+            type="image/webp"
+          />
+          <source 
+            media="(max-width: 1024px)" 
+            srcSet="/images/hero/hero-1024w.jpg"
+            type="image/jpeg"
+          />
+          <source 
+            media="(max-width: 1920px)" 
+            srcSet="/images/hero/hero-1920w.webp"
+            type="image/webp"
+          />
+          <source 
+            media="(max-width: 1920px)" 
+            srcSet="/images/hero/hero-1920w.jpg"
+            type="image/jpeg"
+          />
+          <source 
+            srcSet="/images/hero/hero-full.webp"
+            type="image/webp"
+          />
+          <img 
+            src="/images/hero/hero-full.jpg" 
+            alt="Samoan taro fields with volcanic mountains" 
+            className="hero-bg-image"
+            loading="eager"
+            fetchPriority="high"
+          />
+        </picture>
         <div className="hero-overlay"></div>
-        <div className="hero-pattern"></div>
       </div>
       
       <div className="container hero-container">
@@ -55,40 +97,7 @@ export function HeroSection() {
           </div>
         </div>
         
-        <div className="hero-visual">
-          <div className="hero-product-showcase">
-            <div className="product-float product-1">
-              <img 
-                src="/images/taro-protein.png" 
-                alt="Taro Protein" 
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                }}
-              />
-            </div>
-            <div className="product-float product-2">
-              <img 
-                src="/images/taro-flour.png" 
-                alt="Taro Flour"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                }}
-              />
-            </div>
-            <div className="product-float product-3">
-              <img 
-                src="/images/taro-tea.png" 
-                alt="Taro Milk Tea"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                }}
-              />
-            </div>
-            <div className="hero-product-placeholder">
-              <TaroIllustration />
-            </div>
-          </div>
-        </div>
+ 
       </div>
       
       <style>{heroStyles}</style>
@@ -167,7 +176,7 @@ const heroStyles = `
     display: flex;
     align-items: center;
     overflow: hidden;
-    background: var(--strong-cream);
+    background: var(--strong-black);
   }
   
   .hero-background {
@@ -176,20 +185,41 @@ const heroStyles = `
     z-index: 0;
   }
   
+  .hero-bg-picture {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .hero-bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  
   .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, var(--strong-cream) 0%, rgba(255, 195, 0, 0.08) 50%, var(--strong-cream) 100%);
+    background: linear-gradient(
+      to right,
+      rgba(35, 31, 32, 0.85) 0%,
+      rgba(35, 31, 32, 0.7) 40%,
+      rgba(35, 31, 32, 0.3) 70%,
+      rgba(35, 31, 32, 0.1) 100%
+    );
   }
   
-  .hero-pattern {
-    position: absolute;
-    inset: 0;
-    opacity: 0.03;
-    background-image: 
-      repeating-linear-gradient(45deg, var(--strong-black) 0, var(--strong-black) 1px, transparent 0, transparent 50%),
-      repeating-linear-gradient(-45deg, var(--strong-black) 0, var(--strong-black) 1px, transparent 0, transparent 50%);
-    background-size: 40px 40px;
+  @media (max-width: 1024px) {
+    .hero-overlay {
+      background: linear-gradient(
+        to bottom,
+        rgba(35, 31, 32, 0.7) 0%,
+        rgba(35, 31, 32, 0.5) 50%,
+        rgba(35, 31, 32, 0.7) 100%
+      );
+    }
   }
   
   .hero-container {
@@ -222,18 +252,19 @@ const heroStyles = `
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
-    background: var(--strong-white);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
     padding: var(--space-2) var(--space-4);
     border-radius: var(--radius-full);
     font-size: var(--text-sm);
     font-weight: var(--font-medium);
-    color: var(--color-text);
+    color: var(--strong-white);
     width: fit-content;
-    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
   
   .hero-badge svg {
-    color: var(--strong-leaf);
+    color: var(--strong-yellow);
     flex-shrink: 0;
   }
   
@@ -241,8 +272,9 @@ const heroStyles = `
     font-size: var(--text-4xl);
     font-weight: var(--font-black);
     line-height: 1.1;
-    color: var(--strong-black);
+    color: var(--strong-white);
     margin: 0;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
   }
   
   @media (min-width: 768px) {
@@ -259,7 +291,7 @@ const heroStyles = `
   
   .hero-description {
     font-size: var(--text-lg);
-    color: var(--color-text-muted);
+    color: rgba(255, 255, 255, 0.85);
     line-height: 1.7;
     max-width: 500px;
     margin: 0;
@@ -269,6 +301,17 @@ const heroStyles = `
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-4);
+  }
+  
+  .hero-section .btn-outline {
+    color: var(--strong-white);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .hero-section .btn-outline:hover {
+    background: var(--strong-white);
+    color: var(--strong-black);
+    border-color: var(--strong-white);
   }
   
   .hero-features {
@@ -291,13 +334,13 @@ const heroStyles = `
     gap: var(--space-2);
     font-size: var(--text-xs);
     font-weight: var(--font-medium);
-    color: var(--color-text-muted);
+    color: rgba(255, 255, 255, 0.8);
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
   
   .hero-feature svg {
-    color: var(--strong-leaf);
+    color: var(--strong-yellow);
     flex-shrink: 0;
   }
   
@@ -372,12 +415,41 @@ const heroStyles = `
   .hero-product-placeholder {
     width: 80%;
     margin: 0 auto;
-    opacity: 0.2;
+    opacity: 0.3;
   }
   
   .hero-product-placeholder svg {
     width: 100%;
     height: auto;
+    filter: brightness(1.5);
+  }
+  
+  /* Hide product showcase on mobile since hero image is the focus */
+  @media (max-width: 1023px) {
+    .hero-visual {
+      display: none;
+    }
+    
+    .hero-content {
+      text-align: center;
+      align-items: center;
+    }
+    
+    .hero-badge {
+      margin: 0 auto;
+    }
+    
+    .hero-description {
+      margin: 0 auto;
+    }
+    
+    .hero-features {
+      justify-content: center;
+    }
+    
+    .hero-actions {
+      justify-content: center;
+    }
   }
 `;
 
